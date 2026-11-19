@@ -2,7 +2,7 @@
 $host   = 'localhost';
 $dbname = 'childcare_center';
 $user   = 'root';
-$pass   = 'alexander17!';
+$pass   = '';
 
 try {
     $pdo = new PDO(
