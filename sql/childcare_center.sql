@@ -152,4 +152,14 @@ JOIN parent p ON p.parent_id = i.parent_id
 LEFT JOIN payments pay ON pay.invoice_id = i.invoice_id
 GROUP BY p.name, i.invoice_id, i.amount_requested;
 
+ALTER TABLE staff
+    ADD COLUMN password_hash VARCHAR(255) NULL,
+    ADD COLUMN role VARCHAR(10) NOT NULL DEFAULT 'staff',
+    ADD CONSTRAINT chk_staff_role CHECK (role IN ('staff', 'admin'));
 
+ALTER TABLE parent
+    ADD COLUMN password_hash VARCHAR(255) NULL;
+
+UPDATE staff  SET password_hash = '$2y$10$zxaxd3N61Y6znlUtmJuQs.vLp4bLWxiPrQfw3J3DNCAgl4AQ.e4cu', role = 'admin' WHERE staff_id = 1;
+UPDATE staff  SET password_hash = '$2y$10$zxaxd3N61Y6znlUtmJuQs.vLp4bLWxiPrQfw3J3DNCAgl4AQ.e4cu' WHERE staff_id = 2;
+UPDATE parent SET password_hash = '$2y$10$zxaxd3N61Y6znlUtmJuQs.vLp4bLWxiPrQfw3J3DNCAgl4AQ.e4cu' WHERE parent_id = 1;

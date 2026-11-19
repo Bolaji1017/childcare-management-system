@@ -4,11 +4,13 @@ $dbname = 'childcare_center';
 $user   = 'root';
 $pass   = '';
 
+$config = require __DIR__ . '/config.php';
+
 try {
     $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-        $user,
-        $pass,
+        "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8mb4",
+        $config['user'],
+        $config['pass'],
         [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,  
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -17,5 +19,5 @@ try {
     );
 } catch (PDOException $e) {
     error_log($e->getMessage());
-    die('Database connection failed.');
+   die('Connection failed: ' . $e->getMessage());
 }
